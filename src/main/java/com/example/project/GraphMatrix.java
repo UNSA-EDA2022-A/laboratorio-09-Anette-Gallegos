@@ -77,9 +77,24 @@ public class GraphMatrix implements Graph {
         return s;
     }
 
-    public int countConnectedComponents() {
+    public int countConnectedComponents(){
+    	int k = 1;
+        return countConnectedComponents(k, 0, numVertices);
+    }
+    
+    public int countConnectedComponents(int contador, int numero, int tamano){
+    	@SuppressWarnings("unchecked")
+		ArrayList<Integer> visitado = (ArrayList<Integer>) this.depthFirstSearch(numero).clone();
+    	ArrayList<Integer> grafo = new ArrayList<>();
+    	
+    	for (int i = numero; i < numVertices; i++) {
+			grafo.add(i);
+		}
 
-        return -1;
+    	if (visitado.size() != grafo.size()){
+    		return countConnectedComponents(contador+1,visitado.size(),numVertices);
+		}
+    	return contador;
     }
 
     public static void main(String args[]) {
